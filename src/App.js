@@ -186,7 +186,7 @@ export default class App extends Component {
         const destino = valorDrop2.value.substr(valorDrop2.value.length - 3);
         const fecha = valorFecha.value;
 
-        axios.get(`https://www.aeromexico.com/api/v1/checkin/flight-status?store=mx&pos=WEB&flight=&date=${fecha}&origin=${origen}&destination=${destino}`)
+        axios.get(`https://mad.amlab7.com/api/v1/checkin/flight-status?store=mx&pos=WEB&flight=&date=${fecha}&origin=${origen}&destination=${destino}`)
             .then((response) => this.setState({ datosVuelos: response.data }));
     }
 
@@ -194,7 +194,7 @@ export default class App extends Component {
         const { inputValue, valorFecha } = this.state;
         const fecha = valorFecha.value;
 
-        axios.get(`https://www.aeromexico.com/api/v1/checkin/flight-status?store=mx&pos=WEB&flight=${inputValue}&date=${fecha}&origin=&destination=`)
+        axios.get(`https://mad.amlab7.com/api/v1/checkin/flight-status?store=mx&pos=WEB&flight=${inputValue}&date=${fecha}&origin=&destination=`)
             .then((response) => this.setState({ datosVuelos: response.data }));
     }
 
