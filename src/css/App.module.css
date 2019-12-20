@@ -10,13 +10,14 @@
     background-color: #297cc2;
     border: 0px solid #000;
     padding: 2%;
+    margin-top: 0%;
 }
 .titulo {
     display: flex;
     flex-direction: row;
     background-color: #297cc2;
     border: 0px solid #000;
-    margin-top: 3%;
+    margin-top: 3.5%;
 }
 .columnaTituloImagen {
     display: flex;
@@ -43,6 +44,11 @@
     flex-direction: column;
     width: 3%;
 }
+.columnaEspacioRadioButton {
+    display: flex;
+    flex-direction: column;
+    width: 3%;
+}
 .columnaRadioButtons {
     display: flex;
     flex-direction: column;
@@ -63,6 +69,10 @@
 .labelDate {
     text-align: left;
     color: #8abddf;
+    font-size: 12px;
+}
+.inputFecha {
+    border: 0px solid #000;
 }
 .dropDownDate {
     background-color: #fff;
@@ -146,6 +156,7 @@
     display: flex;
     flex-direction: row;
     color: #fff;
+    border: 0px solid #000;
 }
 .columnRadioDestino {
     display: flex;
@@ -175,7 +186,10 @@
     padding-left: 9%;
     width: 100%;
 }
-
+.containerForm {
+    display: flex;
+    flex-direction: column;
+}
 .statusColorCancelado {
     color: #eb3732;
 }
@@ -191,4 +205,166 @@
     box-shadow: none;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
+}
+@media(max-width: 1386px) {
+    .columnaDate {
+        display: flex;
+        flex-direction: column;
+        border: 0px solid #000;
+        width: 30%;
+    }
+    .columnaDroplist {
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+    }
+}
+
+@media(max-width: 1230px) {
+    .columnaEspacioRadioButton {
+        display: flex;
+        flex-direction: column;
+        width: 0%;
+        border: 0px solid #000;
+    }
+    .columnaRadioButtons {
+        display: flex;
+        flex-direction: column;
+        width: 20%;
+        border-right: 1px solid #8abddf;
+    }
+}
+
+@media(max-width: 1200px) {
+    .body {
+        display: flex;
+        flex-direction: row;
+        background-color: #297cc2;
+        border: 0px solid #000;
+        padding: 2%;
+        margin-top: 5%;
+    }
+}
+
+@media(max-width: 1000px) {
+    .formContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 80%;
+        border: 0px solid #000;
+    }
+    .columnaDroplist {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    .columnaDate {
+        display: flex;
+        flex-direction: column;
+        border: 0px solid #000;
+        width: 100%;
+    }
+    .body {
+        display: flex;
+        flex-direction: column;
+        background-color: #297cc2;
+        border: 0px solid #000;
+        padding: 2%;
+        margin-top: 5%;
+        align-items: center;
+        justify-content: center;
+    }
+    .columnaRadioButtons {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        border-right: 0px;
+        border-bottom: 1px solid #8abddf;
+    }
+    .containerForm {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        border: 0px solid #000;
+    }
+    .radio {
+        border: 0px solid #000;
+        width: 50%;
+    }
+    .inputDestino {
+        display: flex;
+        flex-direction: row;
+        color: #fff;
+        width: 50%;
+        border: 0px solid #000;
+    }
+    .columnaEspacioBoton {
+        display: flex;
+        flex-direction: row;
+        width: 80%;
+        padding: 1%;
+        border: 0px solid #000;
+    }
+    .inputNumero {
+        border-radius: 3px;
+        border: 0px;
+        padding: 1%;
+        padding-left: 3%;
+        width: 100%;
+    }
+}
+
+@media(max-width: 760px) {
+    .formContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        border: 0px solid #000;
+    }
+    .columnaRadioButtons {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        border-right: 0px;
+        border-bottom: 1px solid #8abddf;
+    }
+}
+
+@media(max-width: 680px) {
+    .body {
+        display: flex;
+        flex-direction: column;
+        background-color: #297cc2;
+        border: 0px solid #000;
+        padding: 2%;
+        margin-top: 8%;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media(max-width: 608px) {
+    .columnRadioDestino {
+        display: flex;
+        flex-direction: column;
+        border: 0px solid #000;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+    }
+}
+
+@media(max-width: 540px) {
+    .columnRadioDestino {
+        display: flex;
+        flex-direction: column;
+        border: 0px solid #000;
+        justify-content: center;
+        align-items: center;
+        font-size: 11px;
+    }
 }

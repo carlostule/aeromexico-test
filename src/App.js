@@ -29,7 +29,10 @@ export default class App extends Component {
             datosVuelos: null,
             selectedOption: 'option1',
             inputValue: '',
+            width: 0,
+            height: 0,
         }
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
 
     componentWillMount() {
@@ -38,6 +41,19 @@ export default class App extends Component {
         fechas.push({ value: this.fechaMañana('reducida'), label: this.fechaMañana() });
         this.setState({ fechas });
         this.setState({ valorFecha: [{ value: this.fechaActual('reducida'), label: this.fechaActual() }] });
+
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+      
+    updateWindowDimensions() {
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
+        const { width, height } = this.state
+        console.log(width, height);
     }
 
     actualizarValorOrigen = (valor) => {
@@ -191,7 +207,7 @@ export default class App extends Component {
             );
         }
         return (
-            <Table condensed>
+            <Table condensed responsive>
                                 <thead>
                                     <tr>
                                         <th style={{ color: '#0b2343' }}>Número de vuelo</th>
@@ -259,94 +275,167 @@ export default class App extends Component {
     }
 
     render() {
-        const { valorFecha, fechas, datosVuelos, selectedOption, inputValue } = this.state
+        const { valorFecha, fechas, datosVuelos, selectedOption, inputValue, width } = this.state
         return(
             <div className={styles.container}>
                 <Header />
-                <div className={styles.titulo}>
-                    <div className={styles.columnaTituloImagen}>
-                        <Image src={reloj} className={styles.relojImagen} />
-                    </div>
-                    <div className={styles.columnaTitulo}>
-                        <h1 style={{ color: '#fff', fontSize: '40px' }}>Rastrea tu vuelo</h1>
-                    </div>
-                    <div />
-                </div>
-                <div className={styles.body}>
-                    <div className={styles.columnaEspacio}/>
-                    <div className={styles.columnaRadioButtons}>
-                    <div className="container">
-                        <div className="row">
-                        <div className="col-sm-12">
-                            <form onSubmit={this.handleFormSubmit}>
-                                <div className="radio">
-                                    <label className={styles.inputDestino}>
-                                        <div className={styles.columnRadioDestino}>
-                                            <input type="radio" value="option1" checked={selectedOption === 'option1'} onChange={this.handleOptionChange} />
-                                        </div>
-                                        <div className={styles.columnaEspacioRadio}/>
-                                        <div className={styles.columnRadioDestino}>
-                                            Destino
-                                        </div>
-                                    </label>
-                                </div>
-                                <div className="radio">
-                                    <label className={styles.inputDestino}>
-                                        <div className={styles.columnRadioDestino}>
-                                            <input type="radio" value="option2" checked={selectedOption === 'option2'} onChange={this.handleOptionChange} />
-                                        </div>
-                                        <div className={styles.columnaEspacioRadio}/>
-                                        <div className={styles.columnRadioDestino}>
-                                            Número de vuelo
-                                        </div>
-                                    </label>
-                                </div>
-                            </form>
+                {
+                    (width < 1200) ? null : (
+                        <div className={styles.titulo}>
+                            <div className={styles.columnaTituloImagen}>
+                                <Image src={reloj} className={styles.relojImagen} />
+                            </div>
+                            <div className={styles.columnaTitulo}>
+                                <h1 style={{ color: '#fff', fontSize: '40px' }}>Rastrea tu vuelo</h1>
+                            </div>
+                            <div />
                         </div>
+                    )
+                }
+                {
+                    (width < 1000) ? (
+                        <div className={styles.body}>
+                            <div className={styles.columnaEspacioRadioButton}/>
+                            <div className={styles.columnaRadioButtons}>
+                                <form className={styles.containerForm} onSubmit={this.handleFormSubmit}>
+                                    <div className={styles.radio}>
+                                        <label className={styles.inputDestino}>
+                                            <div className={styles.columnRadioDestino}>
+                                                <input type="radio" value="option1" checked={selectedOption === 'option1'} onChange={this.handleOptionChange} />
+                                            </div>
+                                            <div className={styles.columnaEspacioRadio}/>
+                                            <div className={styles.columnRadioDestino}>
+                                                Destino
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div className={styles.radio}>
+                                        <label className={styles.inputDestino}>
+                                            <div className={styles.columnRadioDestino}>
+                                                <input type="radio" value="option2" checked={selectedOption === 'option2'} onChange={this.handleOptionChange} />
+                                            </div>
+                                            <div className={styles.columnaEspacioRadio}/>
+                                            <div className={styles.columnRadioDestino}>
+                                                Número de vuelo
+                                            </div>
+                                        </label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div className={styles.columnaEspacio}/>
+                            {
+                                (selectedOption === 'option1') ? (
+                                    <div className={styles.formContainer}>
+                                        <div className={styles.columnaDroplist}>
+                                            <Droplist tipo="Origen" data={{ value: this.state.valorDrop1, actualizarValorOrigen: this.actualizarValorOrigen.bind(this) }}/>
+                                        </div>
+                                        <div className={styles.columnaEspacio}/>
+                                        <div className={styles.columnaDroplist}>
+                                            <Droplist tipo="Destino" data={{ value: this.state.valorDrop2, actualizarValorDestino: this.actualizarValorDestino.bind(this) }}/>
+                                        </div>
+                                        <div className={styles.columnaEspacio}/>
+                                        <div className={styles.columnaDate}>
+                                            <Button bsStyle="link" className={styles.labelDate}>Fecha de salida</Button>
+                                            <Select value={valorFecha} options={fechas} onChange={this.handleChange} className={styles.inputFecha}/>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className={styles.formContainer}>
+                                        <div className={styles.columnaDroplist}>
+                                            <Button bsStyle="link" className={styles.labelDate}>Número de vuelo</Button>
+                                            <input type="text" className={styles.inputNumero} value={inputValue} onChange={this.handleInputChange}/>
+                                        </div>
+                                        <div className={styles.columnaEspacio}/>
+                                        <div className={styles.columnaDate}>
+                                            <Button bsStyle="link" className={styles.labelDate}>Fecha de salida</Button>
+                                            <Select value={valorFecha} options={fechas} onChange={this.handleChange}/>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                            <div className={styles.columnaEspacioBoton}/>
+                            <div className={styles.columnaBoton}>
+                                <Boton nombreBoton="BUSCAR" esImagen={false} click={(selectedOption === 'option1') ? this.buscarVuelos : this.buscarVuelosNumero} />
+                            </div>
                         </div>
-                    </div>
-                    </div>
-                    <div className={styles.columnaEspacio}/>
-                    {
-                        (selectedOption === 'option1') ? (
-                            <div className={styles.formContainer}>
-                                <div className={styles.columnaDroplist}>
-                                    <Droplist tipo="Origen" data={{ value: this.state.valorDrop1, actualizarValorOrigen: this.actualizarValorOrigen.bind(this) }}/>
+                    ) : (
+                        <div className={styles.body}>
+                            <div className={styles.columnaEspacioRadioButton}/>
+                            <div className={styles.columnaRadioButtons}>
+                            <div className="container">
+                                <div className="row">
+                                <div className="col-sm-12">
+                                    <form onSubmit={this.handleFormSubmit}>
+                                        <div className="radio">
+                                            <label className={styles.inputDestino}>
+                                                <div className={styles.columnRadioDestino}>
+                                                    <input type="radio" value="option1" checked={selectedOption === 'option1'} onChange={this.handleOptionChange} />
+                                                </div>
+                                                <div className={styles.columnaEspacioRadio}/>
+                                                <div className={styles.columnRadioDestino}>
+                                                    Destino
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div className="radio">
+                                            <label className={styles.inputDestino}>
+                                                <div className={styles.columnRadioDestino}>
+                                                    <input type="radio" value="option2" checked={selectedOption === 'option2'} onChange={this.handleOptionChange} />
+                                                </div>
+                                                <div className={styles.columnaEspacioRadio}/>
+                                                <div className={styles.columnRadioDestino}>
+                                                    Número de vuelo
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div className={styles.columnaEspacio}/>
-                                <div className={styles.columnaDroplist}>
-                                    <Droplist tipo="Destino" data={{ value: this.state.valorDrop2, actualizarValorDestino: this.actualizarValorDestino.bind(this) }}/>
-                                </div>
-                                <div className={styles.columnaEspacio}/>
-                                <div className={styles.columnaDate}>
-                                    <Button bsStyle="link" className={styles.labelDate}>Fecha de salida</Button>
-                                    <Select value={valorFecha} options={fechas} onChange={this.handleChange}/>
                                 </div>
                             </div>
-                        ) : (
-                            <div className={styles.formContainer}>
-                                <div className={styles.columnaDroplist}>
-                                    <Button bsStyle="link" className={styles.labelDate}>Número de vuelo</Button>
-                                    <input type="text" className={styles.inputNumero} value={inputValue} onChange={this.handleInputChange}/>
-                                </div>
-                                <div className={styles.columnaEspacio}/>
-                                <div className={styles.columnaDate}>
-                                    <Button bsStyle="link" className={styles.labelDate}>Fecha de salida</Button>
-                                    <Select value={valorFecha} options={fechas} onChange={this.handleChange}/>
-                                </div>
                             </div>
-                        )
-                    }
-                    <div className={styles.columnaEspacioBoton}/>
-                    <div className={styles.columnaBoton}>
-                        <Boton nombreBoton="BUSCAR" esImagen={false} click={(selectedOption === 'option1') ? this.buscarVuelos : this.buscarVuelosNumero} />
-                    </div>
-                </div>
+                            <div className={styles.columnaEspacio}/>
+                            {
+                                (selectedOption === 'option1') ? (
+                                    <div className={styles.formContainer}>
+                                        <div className={styles.columnaDroplist}>
+                                            <Droplist tipo="Origen" data={{ value: this.state.valorDrop1, actualizarValorOrigen: this.actualizarValorOrigen.bind(this) }}/>
+                                        </div>
+                                        <div className={styles.columnaEspacio}/>
+                                        <div className={styles.columnaDroplist}>
+                                            <Droplist tipo="Destino" data={{ value: this.state.valorDrop2, actualizarValorDestino: this.actualizarValorDestino.bind(this) }}/>
+                                        </div>
+                                        <div className={styles.columnaEspacio}/>
+                                        <div className={styles.columnaDate}>
+                                            <Button bsStyle="link" className={styles.labelDate}>Fecha de salida</Button>
+                                            <Select value={valorFecha} options={fechas} onChange={this.handleChange} className={styles.inputFecha}/>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className={styles.formContainer}>
+                                        <div className={styles.columnaDroplist}>
+                                            <Button bsStyle="link" className={styles.labelDate}>Número de vuelo</Button>
+                                            <input type="text" className={styles.inputNumero} value={inputValue} onChange={this.handleInputChange}/>
+                                        </div>
+                                        <div className={styles.columnaEspacio}/>
+                                        <div className={styles.columnaDate}>
+                                            <Button bsStyle="link" className={styles.labelDate}>Fecha de salida</Button>
+                                            <Select value={valorFecha} options={fechas} onChange={this.handleChange}/>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                            <div className={styles.columnaEspacioBoton}/>
+                            <div className={styles.columnaBoton}>
+                                <Boton nombreBoton="BUSCAR" esImagen={false} click={(selectedOption === 'option1') ? this.buscarVuelos : this.buscarVuelosNumero} />
+                            </div>
+                        </div>
+                    )
+                }
                 <div className={styles.resultsContainer}>
                     {
-                        (datosVuelos === null || datosVuelos._collection === 0) ? (
+                        (datosVuelos === null) ? (
                            <div className={styles.viewNoDisponible}>
-                               <h1 style={{ fontSize: '62px' }}>No hay vuelos disponibles<br /><p style={{ fontSize: '24px', fontWeight: 'lighter' }}>Por favor intenta de nuevo</p></h1>
+                               <h1 style={{ fontSize: '62px' }}>Busca tu vuelo<br /><p style={{ fontSize: '24px', fontWeight: 'lighter' }}>Podrás ver su información</p></h1>
                            </div>
                         ) : this.putTable(datosVuelos)  
                     }

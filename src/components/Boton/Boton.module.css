@@ -15,3 +15,17 @@
     color: #fff;
 }
 
+@media(max-width: 1000px) {
+    .estiloBoton {
+        display: flex;
+        flex-direction: row;
+        background-color: #0d4990;
+        color: #fff;
+        border-radius: 50px;
+        width: 200%;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        padding: 25%;
+    }
+}
