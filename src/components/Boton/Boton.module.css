@@ -1,0 +1,17 @@
+.estiloBoton {
+    display: flex;
+    flex-direction: row;
+    background-color: #0d4990;
+    color: #fff;
+    border-radius: 50px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    padding: 15%;
+}
+.estiloBoton:hover {
+    background-color: #eb3732;
+    color: #fff;
+}
+
