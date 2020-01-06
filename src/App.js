@@ -269,7 +269,7 @@ export default class App extends Component {
                                                         </td>
                                                         <td>
                                                             <div className={styles.columnaCellHora1}>
-                                                                <h4>{`${fly.boardingTime}`}</h4>
+                                                                <h4>{`${fly.boardingTime.substring(0, 5)}`}</h4>
                                                             </div>
                                                         </td>
                                                         <td>
@@ -279,7 +279,7 @@ export default class App extends Component {
                                                         </td>
                                                         <td>
                                                             <div className={styles.columnaCellHora2}>
-                                                                <h4>{`${(fly.segment.arrivalDateTime.substr(fly.segment.arrivalDateTime.length - 8)).substring(0, 5)}`}</h4>
+                                                                <h4>{`${(fly.segment.arrivalDateTime.substring(11, 16))}`}</h4>
                                                             </div>
                                                         </td>
                                                         <td>
