@@ -112,7 +112,13 @@ export default class App extends Component {
             }
         }
         if (tipoFecha === 'reducida') {
-            fecha = `${anio}-${month}-${dia}`;
+            if (month < 10 && dia < 10) {
+                fecha = `${anio}-0${month}-0${dia}`;
+            } else if (dia < 10) {
+                fecha = `${anio}-${month}-0${dia}`;
+            } else if (month < 10) {
+                fecha = `${anio}-0${month}-${dia}`;
+            }
         } else {
             fecha = `${dia} de ${this.nombreMes(month)}`;
         }
@@ -127,7 +133,13 @@ export default class App extends Component {
         let fecha = '';
 
         if (tipoFecha === 'reducida') {
-            fecha = `${anio}-${month}-${dia}`;
+            if (month < 10 && dia < 10) {
+                fecha = `${anio}-0${month}-0${dia}`;
+            } else if (dia < 10) {
+                fecha = `${anio}-${month}-0${dia}`;
+            } else if (month < 10) {
+                fecha = `${anio}-0${month}-${dia}`;
+            }
         } else {
             fecha = `${dia} de ${this.nombreMes(month)}`;
         }
@@ -157,7 +169,13 @@ export default class App extends Component {
         }
 
         if (tipoFecha === 'reducida') {
-            fecha = `${anio}-${month}-${dia}`;
+            if (month < 10 && dia < 10) {
+                fecha = `${anio}-0${month}-0${dia}`;
+            } else if (dia < 10) {
+                fecha = `${anio}-${month}-0${dia}`;
+            } else if (month < 10) {
+                fecha = `${anio}-0${month}-${dia}`;
+            }
         } else {
             fecha = `${dia} de ${this.nombreMes(month)}`;
         }
