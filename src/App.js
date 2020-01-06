@@ -118,6 +118,8 @@ export default class App extends Component {
                 fecha = `${anio}-${month}-0${dia}`;
             } else if (month < 10) {
                 fecha = `${anio}-0${month}-${dia}`;
+            } else {
+                fecha = `${anio}-${month}-${dia}`;
             }
         } else {
             fecha = `${dia} de ${this.nombreMes(month)}`;
@@ -139,6 +141,8 @@ export default class App extends Component {
                 fecha = `${anio}-${month}-0${dia}`;
             } else if (month < 10) {
                 fecha = `${anio}-0${month}-${dia}`;
+            } else {
+                fecha = `${anio}-${month}-${dia}`;
             }
         } else {
             fecha = `${dia} de ${this.nombreMes(month)}`;
@@ -175,6 +179,8 @@ export default class App extends Component {
                 fecha = `${anio}-${month}-0${dia}`;
             } else if (month < 10) {
                 fecha = `${anio}-0${month}-${dia}`;
+            } else {
+                fecha = `${anio}-${month}-${dia}`;
             }
         } else {
             fecha = `${dia} de ${this.nombreMes(month)}`;
